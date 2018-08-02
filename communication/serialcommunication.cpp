@@ -5,6 +5,8 @@ SerialCommunication::SerialCommunication(QObject *parent, QString portName, Baud
                                          DataBits dataBitsUsed, Parity parity,
                                          StopBits numberOfStops, FlowControl flowControl):QSerialPort(parent)
 {
+    qDebug() << portName;
+    this->ok = true;
     this->setPortName(portName);
     if (this->open(QIODevice::ReadWrite)){
         this->setBaudRate(baudRate);
@@ -14,7 +16,7 @@ SerialCommunication::SerialCommunication(QObject *parent, QString portName, Baud
         this->setFlowControl(flowControl);
     }
     else
-        qDebug() <<"Error de conexion serial: ¿Tiene conectade el dispositive?";
+        this->ok = false;
     qDebug()<<" Conexión Completa";
     connect(this,&SerialCommunication::readyRead,this,&SerialCommunication::readData);
 }
@@ -29,3 +31,9 @@ void SerialCommunication::sendData(QString data)
 {
     this->write(data.toStdString().c_str());
 }
+
+bool SerialCommunication::isOk() const
+{
+    return ok;
+}
+

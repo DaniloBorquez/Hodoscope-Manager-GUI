@@ -14,9 +14,14 @@ public:
                         DataBits dataBitsUsed = QSerialPort::Data8, Parity parity = QSerialPort::NoParity,
                         StopBits numberOfStops = QSerialPort::OneStop, FlowControl flowControl = QSerialPort::NoFlowControl);
 
+    bool isOk() const;
+
 public slots:
     void readData();
     void sendData(QString data);
+
+private:
+    bool ok;
 };
 
 #endif // SERIALCOMMUNICATION_H

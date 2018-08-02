@@ -3,6 +3,9 @@
 
 #include <QDialog>
 #include <QSerialPortInfo>
+#include <QMessageBox>
+
+#include <communication/serialcommunication.h>
 
 namespace Ui {
 class DialogSerialChoose;
@@ -15,6 +18,9 @@ class DialogSerialChoose : public QDialog
 public:
     explicit DialogSerialChoose(QWidget *parent = 0);
     ~DialogSerialChoose();
+
+public slots:
+    void done(int r);
 
 private:
     Ui::DialogSerialChoose *ui;
