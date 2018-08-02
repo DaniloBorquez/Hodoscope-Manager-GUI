@@ -24,12 +24,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        GUI/mainwindow.cpp \
-    GUI/data.cpp \
+    GUI/mainwindow.cpp \
+    kernel/data.cpp \
     communication/serialcommunication.cpp
 
 HEADERS  += GUI/mainwindow.h \
-    GUI/data.h \
+    kernel/data.h \
     communication/serialcommunication.h
 
 FORMS    += GUI/mainwindow.ui
