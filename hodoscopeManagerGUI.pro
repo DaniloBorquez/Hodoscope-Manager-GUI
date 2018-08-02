@@ -26,10 +26,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
     GUI/mainwindow.cpp \
     kernel/data.cpp \
-    communication/serialcommunication.cpp
+    communication/serialcommunication.cpp \
+    GUI/dialogserialchoose.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
-    communication/serialcommunication.h
+    communication/serialcommunication.h \
+    GUI/dialogserialchoose.h
 
-FORMS    += GUI/mainwindow.ui
+FORMS    += GUI/mainwindow.ui \
+    GUI/dialogserialchoose.ui

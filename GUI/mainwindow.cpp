@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    DialogSerialChoose *dialog = new DialogSerialChoose();
+    SerialCommunication *serial = new SerialCommunication(this,"/dev/ttyUSB0");
 }
 
 MainWindow::~MainWindow()

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "communication/serialcommunication.h"
+#include "dialogserialchoose.h"
 
 namespace Ui {
 class MainWindow;
