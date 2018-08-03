@@ -6,7 +6,7 @@
 
 QT       += core gui serialport
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = hodoscopeManagerGUI
 TEMPLATE = app
@@ -29,14 +29,16 @@ SOURCES += main.cpp\
     communication/serialcommunication.cpp \
     GUI/dialogserialchoose.cpp \
     communication/buffer.cpp \
-    kernel/sampledata.cpp
+    kernel/sampledata.cpp \
+    GUI/qcustomplot.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
     communication/serialcommunication.h \
     GUI/dialogserialchoose.h \
     communication/buffer.h \
-    kernel/sampledata.h
+    kernel/sampledata.h \
+    GUI/qcustomplot.h
 
 FORMS    += GUI/mainwindow.ui \
     GUI/dialogserialchoose.ui
