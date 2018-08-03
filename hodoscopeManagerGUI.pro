@@ -27,12 +27,14 @@ SOURCES += main.cpp\
     GUI/mainwindow.cpp \
     kernel/data.cpp \
     communication/serialcommunication.cpp \
-    GUI/dialogserialchoose.cpp
+    GUI/dialogserialchoose.cpp \
+    kernel/buffer.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
     communication/serialcommunication.h \
-    GUI/dialogserialchoose.h
+    GUI/dialogserialchoose.h \
+    kernel/buffer.h
 
 FORMS    += GUI/mainwindow.ui \
     GUI/dialogserialchoose.ui
