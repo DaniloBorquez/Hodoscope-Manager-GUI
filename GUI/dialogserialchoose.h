@@ -22,6 +22,9 @@ public:
 public slots:
     void done(int r);
 
+signals:
+    void serialObject(SerialCommunication *serial);
+
 private:
     Ui::DialogSerialChoose *ui;
 };

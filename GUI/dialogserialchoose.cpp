@@ -28,7 +28,7 @@ void DialogSerialChoose::done(int r)
         SerialCommunication *serial;
         QString selected = ui->listWidgetDevices->currentItem()->text();
         serial = new SerialCommunication(this,selected.split(": ")[1]);
-
+        emit serialObject(serial);
         if(serial->isOk()){
             QDialog::done(r);
             return;

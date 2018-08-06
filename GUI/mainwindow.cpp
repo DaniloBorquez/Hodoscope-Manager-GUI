@@ -1,13 +1,13 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "GUI/qcustomplot.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    DialogSerialChoose *dialog = new DialogSerialChoose();
+    this->dataManager = new DataManager();
+
     //SerialCommunication *serial = new SerialCommunication(this,"/dev/ttyUSB0");
     QVector<double> x(101), y(101); // initialize with entries 0..100
     for (int i=0; i<101; ++i)

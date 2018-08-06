@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "communication/serialcommunication.h"
-#include "dialogserialchoose.h"
+#include "GUI/qcustomplot.h"
+#include "kernel/datamanager.h"
 
 namespace Ui {
 class MainWindow;
@@ -19,6 +20,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    DataManager *dataManager;
 };
 
 #endif // MAINWINDOW_H

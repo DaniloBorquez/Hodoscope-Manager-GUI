@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     GUI/dialogserialchoose.cpp \
     communication/buffer.cpp \
     kernel/sampledata.cpp \
-    GUI/qcustomplot.cpp
+    GUI/qcustomplot.cpp \
+    kernel/datamanager.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
@@ -38,7 +39,8 @@ HEADERS  += GUI/mainwindow.h \
     GUI/dialogserialchoose.h \
     communication/buffer.h \
     kernel/sampledata.h \
-    GUI/qcustomplot.h
+    GUI/qcustomplot.h \
+    kernel/datamanager.h
 
 FORMS    += GUI/mainwindow.ui \
     GUI/dialogserialchoose.ui

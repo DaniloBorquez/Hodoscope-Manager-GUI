@@ -1,4 +1,5 @@
 #include "buffer.h"
+#include <QDebug>
 
 Buffer::Buffer(int maxSize)
 {
@@ -35,4 +36,9 @@ SampleData Buffer::getNPointsFT(int n)
     data.setMean(mean);
     data.setRms(rms);
     return data;
+}
+
+void Buffer::getIncomeMsg(QString msg)
+{
+    qDebug() << "buffer in: " << msg;
 }
