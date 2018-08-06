@@ -19,9 +19,14 @@ public:
 public slots:
     void readData();
     void sendData(QString data);
+    void autoResponse(QString data);
+
+signals:
+    void incomingMsg(QString msg);
 
 private:
     bool ok;
+    QString autoRspMsg;
 };
 
 #endif // SERIALCOMMUNICATION_H
