@@ -4,6 +4,7 @@
 #include <QVector>
 #include <QString>
 #include <QObject>
+#include <QChar>
 
 #include <kernel/data.h>
 #include <kernel/sampledata.h>
@@ -19,6 +20,12 @@ public:
 
 public slots:
     void getIncomeMsg(QString msg);
+
+signals:
+    void frequencySignal(QString msg);
+    void azimuthSignal(QString msg);
+    void polarSignal(QString msg);
+    void distanceSignal(QString msg);
 
 private:
     int maxSize;

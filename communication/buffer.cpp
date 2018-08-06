@@ -41,4 +41,17 @@ SampleData Buffer::getNPointsFT(int n)
 void Buffer::getIncomeMsg(QString msg)
 {
     qDebug() << "buffer in: " << msg;
+    if(msg.startsWith(QChar('#')) && msg.endsWith(QChar('*'))){
+        qDebug() << msg.mid(3,5);
+        qDebug() << msg.mid(10,5);
+        qDebug() << msg.mid(17,5);
+        qDebug() << msg.mid(24,5);
+        emit frequencySignal(msg.mid(3,5));
+        emit azimuthSignal(msg.mid(10,5));
+        emit polarSignal(msg.mid(17,5));
+        emit distanceSignal(msg.mid(24,5));
+
+    }else{
+        qDebug() << "INcorrect";
+    }
 }

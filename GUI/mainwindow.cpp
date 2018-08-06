@@ -7,6 +7,10 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->dataManager = new DataManager();
+    connect(this->dataManager,&DataManager::frequency,this,&MainWindow::frequencyChanged);
+    connect(this->dataManager,&DataManager::azimuth,this,&MainWindow::azimuthChanged);
+    connect(this->dataManager,&DataManager::polar,this,&MainWindow::polarChanged);
+    connect(this->dataManager,&DataManager::distance,this,&MainWindow::distanceChanged);
 
     //SerialCommunication *serial = new SerialCommunication(this,"/dev/ttyUSB0");
     QVector<double> x(101), y(101); // initialize with entries 0..100
@@ -26,9 +30,30 @@ MainWindow::MainWindow(QWidget *parent) :
     this->ui->customPlot->xAxis->setRange(-1, 1);
     this->ui->customPlot->yAxis->setRange(0, 1);
     this->ui->customPlot->replot();
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::frequencyChanged(float f)
+{
+
+}
+
+void MainWindow::azimuthChanged(float a)
+{
+    this->ui->labelAzimuth->setText(QString::number(a));
+}
+
+void MainWindow::polarChanged(float p)
+{
+    this->ui->labelPolar->setText(QString::number(p));
+}
+
+void MainWindow::distanceChanged(float d)
+{
+    this->ui->labelDistance->setText(QString::number(d));
 }

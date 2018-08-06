@@ -15,10 +15,21 @@ public:
 
 public slots:
     void getSerialObject(SerialCommunication *serial);
+    void getFrequency(QString f);
+    void getAzimuth(QString a);
+    void getPolar(QString p);
+    void getDistance(QString d);
+
+signals:
+    void frequency(float f);
+    void azimuth(float a);
+    void polar(float p);
+    void distance(float d);
 
 private:
     Buffer * bufer;
     SerialCommunication *serial;
+    QObject *parent;
 };
 
 #endif // DATAMANAGER_H

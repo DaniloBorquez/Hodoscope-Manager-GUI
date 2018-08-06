@@ -18,6 +18,12 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+public slots:
+    void frequencyChanged(float f);
+    void azimuthChanged(float a);
+    void polarChanged(float p);
+    void distanceChanged(float d);
+
 private:
     Ui::MainWindow *ui;
     DataManager *dataManager;
