@@ -21,8 +21,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::frequencyChanged(float f)
 {
+    qDebug() << "fuera";
     if(this->plotEnabled){
-       //this->ui->customPlot->graph(0)->ad
+        qDebug() << "dentro";
+        double key = this->time.elapsed()/1000.0;
+        this->ui->customPlot->graph(0)->addData(key, f);
+        if(key > 1200){
+            this->ui->customPlot->xAxis->setRange(key, 1200, Qt::AlignRight); //1200 segundos
+        }else{
+            this->ui->customPlot->xAxis->setRange(key, key, Qt::AlignRight); //1200 segundos
+        }
+        this->ui->customPlot->replot();
     }
 }
 
@@ -53,12 +62,14 @@ void MainWindow::plotInit()
     timeTicker->setTimeFormat("%h:%m:%s");
     this->ui->customPlot->xAxis->setTicker(timeTicker);
     this->ui->customPlot->axisRect()->setupFullAxesBox();
-    this->ui->customPlot->yAxis->setRange(0, 10);
+    this->ui->customPlot->yAxis->setRange(-0.05, 10);
     this->ui->customPlot->xAxis->setRange(0, 10);
+    this->ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 5));
     this->ui->customPlot->replot();
 }
 
 void MainWindow::on_pushButtonStart_clicked()
 {
     this->plotEnabled = true;
+    this->time = QTime::currentTime();
 }

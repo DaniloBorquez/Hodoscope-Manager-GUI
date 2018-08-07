@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTime>
+
 #include "communication/serialcommunication.h"
 #include "GUI/qcustomplot.h"
 #include "kernel/datamanager.h"
@@ -31,6 +33,7 @@ private:
     Ui::MainWindow *ui;
     DataManager *dataManager;
     bool plotEnabled;
+    QTime time;
 
     void plotInit();
 };
