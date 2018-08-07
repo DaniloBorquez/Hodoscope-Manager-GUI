@@ -24,9 +24,15 @@ public slots:
     void polarChanged(float p);
     void distanceChanged(float d);
 
+private slots:
+    void on_pushButtonStart_clicked();
+
 private:
     Ui::MainWindow *ui;
     DataManager *dataManager;
+    bool plotEnabled;
+
+    void plotInit();
 };
 
 #endif // MAINWINDOW_H
