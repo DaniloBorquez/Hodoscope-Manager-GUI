@@ -21,9 +21,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::frequencyChanged(float f)
 {
-    qDebug() << "fuera";
     if(this->plotEnabled){
-        qDebug() << "dentro";
         double key = this->time.elapsed()/1000.0;
         this->ui->customPlot->graph(0)->addData(key, f);
         if(key > 1200){
