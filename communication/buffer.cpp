@@ -42,16 +42,24 @@ void Buffer::getIncomeMsg(QString msg)
 {
     qDebug() << "buffer in: " << msg;
     if(msg.startsWith(QChar('#')) && msg.endsWith(QChar('*'))){
-        qDebug() << msg.mid(3,5);
-        qDebug() << msg.mid(10,5);
-        qDebug() << msg.mid(17,5);
-        qDebug() << msg.mid(24,5);
         emit frequencySignal(msg.mid(3,5));
         emit azimuthSignal(msg.mid(10,5));
         emit polarSignal(msg.mid(17,5));
         emit distanceSignal(msg.mid(24,5));
 
+    }else if(msg.startsWith(QChar('#'))){
+        this->incomingBufferMsg = msg;
+    }else if(msg.endsWith(QChar('*'))){
+        this->incomingBufferMsg.append(msg);
+        if(this->incomingBufferMsg.size() == 37){
+            emit frequencySignal(this->incomingBufferMsg.mid(3,5));
+            emit azimuthSignal(this->incomingBufferMsg.mid(10,5));
+            emit polarSignal(this->incomingBufferMsg.mid(17,5));
+            emit distanceSignal(this->incomingBufferMsg.mid(24,5));
+        }else{
+            qDebug() << "Incorrect: "<< this->incomingBufferMsg;
+        }
     }else{
-        qDebug() << "INcorrect";
+        this->incomingBufferMsg.append(msg);
     }
 }

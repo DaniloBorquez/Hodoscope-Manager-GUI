@@ -30,6 +30,7 @@ signals:
 private:
     int maxSize;
     QVector<Data*> *buf;
+    QString incomingBufferMsg;
 
 };
 
