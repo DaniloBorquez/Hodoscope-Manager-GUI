@@ -31,6 +31,11 @@ void MainWindow::frequencyChanged(float f)
         }else{
             this->ui->customPlot->xAxis->setRange(key, key, Qt::AlignRight); //1200 segundos
         }
+        bool foundRange;
+        QCPRange range = this->ui->customPlot->graph(0)->getValueRange(foundRange,QCP::sdPositive);
+        if(foundRange){
+            this->ui->customPlot->yAxis->setRange(-0.1,range.upper);
+        }
         this->ui->customPlot->replot();
     }
 }
@@ -62,7 +67,7 @@ void MainWindow::plotInit()
     timeTicker->setTimeFormat("%h:%m:%s");
     this->ui->customPlot->xAxis->setTicker(timeTicker);
     this->ui->customPlot->axisRect()->setupFullAxesBox();
-    this->ui->customPlot->yAxis->setRange(-0.05, 10);
+    this->ui->customPlot->yAxis->setRange(-0.1, 10);
     this->ui->customPlot->xAxis->setRange(0, 10);
     this->ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 5));
     this->ui->customPlot->replot();
