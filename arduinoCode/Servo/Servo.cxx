@@ -17,6 +17,8 @@ int Servo::init(){
     //int i = lastDuty;   
     
     OCR1A = 150;
+   
+    lastDuty = 150;
 
     return lastDuty;
 }
@@ -39,12 +41,12 @@ void Servo::test(){
     for (int i = 150;i < 600; i++){
     // 150 is 0 degree
     // 600 is 180 degree
-        OCR5C = i;
+        OCR1A = i;
         _delay_ms(100);
         lastDuty = i;
     }
-    for (int i = 600;i < 150; i--){
-        OCR5C = i;
+    for (int i = 600;i > 150; i--){
+        OCR1A = i;
         _delay_ms(100);
         lastDuty = i;
     }
@@ -52,19 +54,19 @@ void Servo::test(){
 
 int Servo::setAngle(int angle){
 
-    double duty = (2.4333* angle) + 150;
-    if(angle == 0) duty = 150;
-    if(angle ==180) duty = 580;
+    double duty = (angle*430/180) + 150;
+    if(angle < 0) duty = 150;
+    if(angle >180) duty = 580;
     int i = lastDuty;
     if (duty < lastDuty){
-        for (i; i > (int) duty; i-- ){    
+        for (i; i >= (int) duty; i-- ){    
             OCR1A = i;
             _delay_ms(50);
             lastDuty = i;
         }
     }
     if (duty > lastDuty){
-        for (i; i < (int) duty; i++ ){    
+        for (i; i <= (int) duty; i++ ){    
             OCR1A = i;
             _delay_ms(50);
             lastDuty = i;
@@ -75,4 +77,26 @@ int Servo::setAngle(int angle){
 }
 
 
+void Servo::begin(){
+   OCR1A = 150;
+}
 
+void Servo::end(){
+   OCR1A = 580;
+}
+
+void Servo::goUp(){
+   for (int i = 150;i < 580; i++){
+        OCR1A = i;
+        _delay_ms(30);
+        lastDuty = i;
+    }
+}
+
+void Servo::goDown(){
+   for (int i = 600;i > 150; i--){
+        OCR1A = i;
+        _delay_ms(30);
+        lastDuty = i;
+    }
+}

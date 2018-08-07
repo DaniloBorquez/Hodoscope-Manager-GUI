@@ -93,7 +93,7 @@ void imudof::readData()
         else kAccelF[k]=0;
        // kGyroF[k] = ((float) kGyro[k]/ 16384 )*90;
      // kGyroF[k] = (float) kGyro[k] *250/32768;
-      dtostrf(180 - kAccelF[k],7, 3, (char*)kAccelC[k]);
+      dtostrf(kAccelF[k],7, 3, (char*)kAccelC[k]);
       dtostrf(kGyroF[k],7, 3, (char*)kGyroC[k]);
       dtostrf(kMag[k],7, 3,   (char*)kMagC[k]);
     }

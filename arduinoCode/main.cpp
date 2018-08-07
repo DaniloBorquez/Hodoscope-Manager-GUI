@@ -35,6 +35,7 @@ char freq_char[6];
 SerialCom uart;     // Principal UART comms 
 imudof imu;         // Accelerometer, Gyroscope and Magnetometer
 ultraSonic us;      // Ultrasonic distance sensor
+Servo servo;        // Servo motor
 
 void timer3_init()
 {
@@ -56,7 +57,6 @@ int main(void){
 /******Object declarations******/
   
    Fdcr finButton;     // End race sensor
-   Servo servo;        // Servo motor
 
 /******Config initializations******/
 
@@ -91,7 +91,15 @@ int main(void){
    uart.sendData(imu.kAccelC[2]);
    uart.sendData("\n");
    angleInit = 180 - imu.kAccelF[2]; 
-   servo.setAngle(angleInit); 
+   servo.begin();
+   _delay_ms(4000);
+   imu.readData();
+   servo.goUp();
+   _delay_ms(4000);
+   servo.baseAngle = imu.kAccelF[2];
+   servo.goDown();
+   _delay_ms(4000);
+   servo.baseAngle = imu.kAccelF[2];
    while(1){
        
    
@@ -102,6 +110,7 @@ int main(void){
 ISR(TIMER3_OVF_vect)
 {
 	TCNT3 = INIT_COUNT(gate-MAX_GATE*OVERFLOW(gate))*(tot_overflow==0);    // Counter value depends on overflow value, same as the initialization  
+
 
 	if(tot_overflow<0)                                                     // Condition for send the value (gate time is reached)
 	{
