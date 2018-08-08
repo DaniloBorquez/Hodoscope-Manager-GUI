@@ -17,6 +17,7 @@ public:
 
     void push(Data* data);
     SampleData getNPointsFT(int n);
+    void receiveParameter(QString parameter);
 
 public slots:
     void getIncomeMsg(QString msg);
@@ -26,6 +27,7 @@ signals:
     void azimuthSignal(QString msg);
     void polarSignal(QString msg);
     void distanceSignal(QString msg);
+    void sendTask(QString parameter);
 
 private:
     int maxSize;

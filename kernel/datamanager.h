@@ -13,6 +13,8 @@ public:
 
     ~DataManager();
 
+    void sendParameter(QString parameter);
+
 public slots:
     void getSerialObject(SerialCommunication *serial);
     void getFrequency(QString f);

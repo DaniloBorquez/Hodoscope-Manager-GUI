@@ -7,6 +7,7 @@
 #include "communication/serialcommunication.h"
 #include "GUI/qcustomplot.h"
 #include "kernel/datamanager.h"
+#include "GUI/dialogazimuth.h"
 
 namespace Ui {
 class MainWindow;
@@ -28,6 +29,8 @@ public slots:
 
 private slots:
     void on_pushButtonStart_clicked();
+
+    void on_pushButtonAzimuth_clicked();
 
 private:
     Ui::MainWindow *ui;

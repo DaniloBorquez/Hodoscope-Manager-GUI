@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     communication/buffer.cpp \
     kernel/sampledata.cpp \
     GUI/qcustomplot.cpp \
-    kernel/datamanager.cpp
+    kernel/datamanager.cpp \
+    GUI/dialogazimuth.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
@@ -40,7 +41,9 @@ HEADERS  += GUI/mainwindow.h \
     communication/buffer.h \
     kernel/sampledata.h \
     GUI/qcustomplot.h \
-    kernel/datamanager.h
+    kernel/datamanager.h \
+    GUI/dialogazimuth.h
 
 FORMS    += GUI/mainwindow.ui \
-    GUI/dialogserialchoose.ui
+    GUI/dialogserialchoose.ui \
+    GUI/dialogazimuth.ui

@@ -20,6 +20,7 @@ public slots:
     void readData();
     void sendData(QString data);
     void autoResponse(QString data);
+    void sendTask(QString data);
 
 signals:
     void incomingMsg(QString msg);

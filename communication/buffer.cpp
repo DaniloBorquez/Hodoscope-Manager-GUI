@@ -38,6 +38,11 @@ SampleData Buffer::getNPointsFT(int n)
     return data;
 }
 
+void Buffer::receiveParameter(QString parameter)
+{
+    emit sendTask(parameter);
+}
+
 void Buffer::getIncomeMsg(QString msg)
 {
     qDebug() << "buffer in: " << msg;

@@ -29,7 +29,7 @@ float angle, lastAngle;
 char *setAngC;
 char *setDistC;
 int angleInit, dist, lastDist;
-int gate = 5;
+float gate = 5;
 int tot_overflow;
 char dataSerial_send[38]="#f:0.000a:00.00p:00.00d:00.00x:00.00*";   
 double freq;

@@ -15,10 +15,17 @@ DataManager::~DataManager()
     delete this->bufer;
 }
 
+void DataManager::sendParameter(QString parameter)
+{
+    this->bufer->receiveParameter(parameter);
+}
+
 void DataManager::getSerialObject(SerialCommunication *serial)
 {
     this->serial = serial;
     connect(serial,&SerialCommunication::incomingMsg,this->bufer,&Buffer::getIncomeMsg);
+    connect(this->bufer,&Buffer::sendTask,serial,&SerialCommunication::sendTask);
+
     connect(this->bufer,&Buffer::frequencySignal,this,&DataManager::getFrequency);
     connect(this->bufer,&Buffer::azimuthSignal,this,&DataManager::getAzimuth);
     connect(this->bufer,&Buffer::polarSignal,this,&DataManager::getPolar);

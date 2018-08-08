@@ -47,6 +47,11 @@ void SerialCommunication::autoResponse(QString data)
     }
 }
 
+void SerialCommunication::sendTask(QString data)
+{
+    this->autoRspMsg = data;
+}
+
 bool SerialCommunication::isOk() const
 {
     return ok;

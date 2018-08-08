@@ -76,3 +76,8 @@ void MainWindow::on_pushButtonStart_clicked()
     this->plotEnabled = true;
     this->time = QTime::currentTime();
 }
+
+void MainWindow::on_pushButtonAzimuth_clicked()
+{
+    new DialogAzimuth(this->dataManager);
+}
