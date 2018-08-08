@@ -79,24 +79,20 @@ int Servo::setAngle(int angle){
 
 void Servo::begin(){
    OCR1A = 150;
+    lastDuty = 150;
 }
 
 void Servo::end(){
    OCR1A = 580;
+    lastDuty = 580;
 }
 
 void Servo::goUp(){
-   for (int i = 150;i < 580; i++){
-        OCR1A = i;
-        _delay_ms(30);
-        lastDuty = i;
-    }
+   lastDuty += (430/180);
+   OCR1A = lastDuty;
 }
 
 void Servo::goDown(){
-   for (int i = 600;i > 150; i--){
-        OCR1A = i;
-        _delay_ms(30);
-        lastDuty = i;
-    }
+   lastDuty += (430/180) ;
+   OCR1A = lastDuty;
 }

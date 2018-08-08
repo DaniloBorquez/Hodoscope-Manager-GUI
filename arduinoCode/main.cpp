@@ -20,6 +20,9 @@ Versión enero 2018
 #include "stepper.h"
 #include "fdcr.h"
 
+#define DIRECCTION_UP 1
+#define DIRECCTION_DOWN 0
+
 bool a=0;
 int i=0;
 float angle, lastAngle;
@@ -88,18 +91,25 @@ int main(void){
 
    imu.readData();
    uart.sendData("Ángulo inicial: ");    
-   uart.sendData(imu.kAccelC[2]);
+   uart.sendData(imu.angleC);
    uart.sendData("\n");
-   angleInit = 180 - imu.kAccelF[2]; 
    servo.begin();
    _delay_ms(4000);
    imu.readData();
-   servo.goUp();
-   _delay_ms(4000);
-   servo.baseAngle = imu.kAccelF[2];
-   servo.goDown();
-   _delay_ms(4000);
-   servo.baseAngle = imu.kAccelF[2];
+   if(imu.angleF < -1.0){
+      while(imu.angleF < -1.0){
+         servo.goUp();  
+         _delay_ms(200);   
+         imu.readData();
+      }
+   }else if(imu.angleF > 1.0){
+      while(imu.angleF < 179.0){
+         servo.goDown();  
+         _delay_ms(200);   
+         imu.readData();
+      }
+   }
+   
    while(1){
        
    

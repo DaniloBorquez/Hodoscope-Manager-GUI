@@ -81,6 +81,9 @@ class imudof{
         int16_t kMag[3];
         float kMagF[3];
         char* kMagC[3];
+
+        char* angleC;
+        float angleF;
     
     //Functions        
         imudof();

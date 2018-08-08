@@ -62,6 +62,8 @@ void imudof::init(){
              kGyroC[k][7]='\0';
              kMagC[k][7]='\0';
         }    
+         angleC = (char*)malloc(8);
+         angleC[7] = '\0';
 }
 
 void imudof::readData()
@@ -97,4 +99,17 @@ void imudof::readData()
       dtostrf(kGyroF[k],7, 3, (char*)kGyroC[k]);
       dtostrf(kMag[k],7, 3,   (char*)kMagC[k]);
     }
+    if (kAccelF[1] < 90.0 && kAccelF[2] < 90.0){
+      angleF = kAccelF[1]-90.0; 
+      dtostrf(angleF,7, 3, (char*)angleC);
+   }else if (kAccelF[1] < 90.0 && kAccelF[2] > 90.0){
+      angleF = kAccelF[1]-90.0; 
+      dtostrf(angleF,7, 3, (char*)angleC);
+   }else if (kAccelF[1] > 90.0 && kAccelF[2] < 90.0){
+      angleF = kAccelF[2];
+      dtostrf(angleF,7, 3, (char*)angleC);
+   }else{
+      angleF = kAccelF[2];
+      dtostrf(angleF,7, 3, (char*)angleC);
+   } 
 }
