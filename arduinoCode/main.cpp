@@ -158,7 +158,7 @@ ISR(TIMER3_OVF_vect)
 	tot_overflow--;
 
    uart_flush();
-   uart.sendData("0") ;
+   uart.sendData("R") ;
    uart.readData();
    uart.sendData(uart.kBuffer);
 }

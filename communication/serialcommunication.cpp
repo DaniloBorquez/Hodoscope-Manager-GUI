@@ -38,7 +38,7 @@ void SerialCommunication::sendData(QString data)
 void SerialCommunication::autoResponse(QString data)
 {
     //qDebug() << "complete Data: " << data << "after split:" << data.split("*").back();
-    if(data.split("*").back().compare("0") == 0){
+    if(data.split("*").back().compare("R") == 0){
         qDebug() << data<<this->autoRspMsg;
         this->sendData(this->autoRspMsg);
         this->autoRspMsg = QString("-1\r");
