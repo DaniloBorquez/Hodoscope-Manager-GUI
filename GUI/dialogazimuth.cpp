@@ -19,7 +19,7 @@ void DialogAzimuth::done(int r)
 {
     if(QDialog::Accepted == r)  // ok was pressed
     {
-        dataManager->sendParameter(QString("a:").append(ui->lineEditAzimuth->text()));
+        dataManager->sendParameter(QString("a:").append(ui->lineEditAzimuth->text()).append('\r'));
         QDialog::done(r);
         return;
    /*     if(serial->isOk()){

@@ -27,8 +27,12 @@ char *SerialCom::readData(void)
 {
 int i=0;
 char c;
+char *st;
 while (((c=uart_recieve())!='\r') && (i < 99))
 {
+   st[0] = c;
+   sendData(st);
+   if(c <33 || c>125) break;
 	kBuffer[i++]=c;
 }
 kBuffer[i]='\0';

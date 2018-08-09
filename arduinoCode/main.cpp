@@ -35,6 +35,9 @@ char dataSerial_send[38]="#f:0.000a:00.00p:00.00d:00.00x:00.00*";
 double freq;
 char freq_char[6];
 bool movingServo = false;
+bool changeMovingServo = false;
+char newAngleServoC[10];
+float newAngleServo = 0;
 
 SerialCom uart;     // Principal UART comms 
 imudof imu;         // Accelerometer, Gyroscope and Magnetometer
@@ -112,8 +115,29 @@ int main(void){
    }
    
    while(1){
-      
-      
+      //uart.sendData("whike") ;
+      _delay_ms(100);
+      if(movingServo){
+         uart.sendData("moving") ;
+         imu.readData();
+         if(newAngleServo < imu.angleF){
+            while (newAngleServo < imu.angleF && movingServo){
+               servo.goDown();  
+               _delay_ms(100);   
+               imu.readData();
+            }
+            if(!changeMovingServo)movingServo = false;
+            else changeMovingServo = false;
+         }else{
+            while (newAngleServo > imu.angleF && movingServo){
+               servo.goUp();  
+               _delay_ms(100);   
+               imu.readData();
+            }
+            if(!changeMovingServo)movingServo = false;
+            else changeMovingServo = false;
+         }
+      }
    }
    return 0;
 }
@@ -156,9 +180,26 @@ ISR(TIMER3_OVF_vect)
 		tot_overflow=OVERFLOW(gate);                                 
 	}
 	tot_overflow--;
-
-   uart_flush();
+   uart_flush(); 
+   _delay_ms(200); 
    uart.sendData("R") ;
    uart.readData();
-   uart.sendData(uart.kBuffer);
+   uart.sendData(uart.kBuffer) ;
+   //uart.sendData(uart.kBuffer);
+   if(uart.kBuffer[0] == 'a'){
+      if(movingServo) changeMovingServo = true;
+      else movingServo = true;
+      int i = 2;
+      while (uart.kBuffer[i] != '\0'){
+         newAngleServoC[i-2] = uart.kBuffer[i];
+         i++; 
+      }
+      newAngleServoC[i-2] = '\0';
+uart.sendData("angulo: ") ;
+      uart.sendData(newAngleServoC) ;
+      newAngleServo = atof(newAngleServoC);
+      if(newAngleServo < 0.0 || newAngleServo > 90.0){
+         movingServo = false;
+      }
+   }
 }

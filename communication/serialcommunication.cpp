@@ -7,7 +7,7 @@ SerialCommunication::SerialCommunication(QObject *parent, QString portName, Baud
 {
     qDebug() << portName;
     this->ok = true;
-    this->autoRspMsg = QString("-1\r");
+    this->autoRspMsg = QString("-1").append('\r');
     this->setPortName(portName);
     if (this->open(QIODevice::ReadWrite)){
         this->setBaudRate(baudRate);
@@ -32,7 +32,8 @@ void SerialCommunication::readData()
 
 void SerialCommunication::sendData(QString data)
 {
-    this->write(data.toStdString().c_str());
+    QByteArray b = data.toUtf8();
+    const qint64 bytesWritten = this->write(b);
 }
 
 void SerialCommunication::autoResponse(QString data)
@@ -41,7 +42,7 @@ void SerialCommunication::autoResponse(QString data)
     if(data.split("*").back().compare("R") == 0){
         qDebug() << data<<this->autoRspMsg;
         this->sendData(this->autoRspMsg);
-        this->autoRspMsg = QString("-1\r");
+        this->autoRspMsg = QString("-1").append('\r');
     }
 }
 

@@ -88,11 +88,11 @@ void Servo::end(){
 }
 
 void Servo::goUp(){
-   lastDuty += (430/180);
+   lastDuty++;
    OCR1A = lastDuty;
 }
 
 void Servo::goDown(){
-   lastDuty += (430/180) ;
+   lastDuty--;
    OCR1A = lastDuty;
 }

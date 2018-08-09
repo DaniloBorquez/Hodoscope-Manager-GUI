@@ -45,13 +45,13 @@ void Buffer::receiveParameter(QString parameter)
 
 void Buffer::getIncomeMsg(QString msg)
 {
-    qDebug() << "buffer in: " << msg;
+    //qDebug() << "buffer in: " << msg;
     if(msg.split("*").size() == 2 && msg.split("*").at(1).compare("R") == 0){
         msg = msg.split("*").front().append('*');
     }else if(msg.compare("R") == 0){
         msg = QString("");
     }
-    qDebug() << "buffer in after: " << msg;
+    //qDebug() << "buffer in after: " << msg;
     if(msg.startsWith(QChar('#')) && msg.endsWith(QChar('*'))){
         emit frequencySignal(msg.mid(3,5));
         emit azimuthSignal(msg.mid(10,5));
