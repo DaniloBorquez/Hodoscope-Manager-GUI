@@ -34,6 +34,7 @@ int tot_overflow;
 char dataSerial_send[38]="#f:0.000a:00.00p:00.00d:00.00x:00.00*";   
 double freq;
 char freq_char[6];
+bool movingServo = false;
 
 SerialCom uart;     // Principal UART comms 
 imudof imu;         // Accelerometer, Gyroscope and Magnetometer
@@ -111,8 +112,8 @@ int main(void){
    }
    
    while(1){
-       
-   
+      
+      
    }
    return 0;
 }
@@ -150,8 +151,14 @@ ISR(TIMER3_OVF_vect)
       dataSerial_send[28] = us.buff[4];  
   
 		uart.sendData(dataSerial_send);
+      uart_flush();
 	
 		tot_overflow=OVERFLOW(gate);                                 
 	}
 	tot_overflow--;
+
+   uart_flush();
+   uart.sendData("0") ;
+   uart.readData();
+   uart.sendData(uart.kBuffer);
 }

@@ -37,13 +37,11 @@ void SerialCommunication::sendData(QString data)
 
 void SerialCommunication::autoResponse(QString data)
 {
-    qDebug() << data;
-    if(data.compare("0") == 0){
+    //qDebug() << "complete Data: " << data << "after split:" << data.split("*").back();
+    if(data.split("*").back().compare("0") == 0){
         qDebug() << data<<this->autoRspMsg;
         this->sendData(this->autoRspMsg);
-        if(this->autoRspMsg.compare("-1\r") != 0){
-            this->autoRspMsg = QString("-1\r");
-        }
+        this->autoRspMsg = QString("-1\r");
     }
 }
 
