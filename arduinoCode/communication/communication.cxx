@@ -31,7 +31,6 @@ char *st;
 while (((c=uart_recieve())!='\r') && (i < 99))
 {
    st[0] = c;
-   sendData(st);
    if(c <33 || c>125) break;
 	kBuffer[i++]=c;
 }

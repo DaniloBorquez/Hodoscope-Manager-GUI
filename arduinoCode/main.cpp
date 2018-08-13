@@ -34,7 +34,8 @@ int tot_overflow;
 char dataSerial_send[38]="#f:0.000a:00.00p:00.00d:00.00x:00.00*";   
 double freq;
 char freq_char[6];
-bool movingServo = false;
+bool movingServo = true;
+bool movingServoSend = true;
 bool changeMovingServo = false;
 char newAngleServoC[10];
 float newAngleServo = 0;
@@ -113,7 +114,8 @@ int main(void){
          imu.readData();
       }
    }
-   
+   _delay_ms(4000); 
+   movingServo = false;
    while(1){
       //uart.sendData("whike") ;
       _delay_ms(100);
@@ -173,8 +175,9 @@ ISR(TIMER3_OVF_vect)
       dataSerial_send[26] = us.buff[2];
       dataSerial_send[27] = us.buff[3];
       dataSerial_send[28] = us.buff[4];  
-  
-		uart.sendData(dataSerial_send);
+      
+      if(!movingServoSend)	uart.sendData(dataSerial_send);
+      else if(!movingServo) movingServoSend = false; 
       uart_flush();
 	
 		tot_overflow=OVERFLOW(gate);                                 
@@ -184,8 +187,6 @@ ISR(TIMER3_OVF_vect)
    _delay_ms(200); 
    uart.sendData("R") ;
    uart.readData();
-   uart.sendData(uart.kBuffer) ;
-   //uart.sendData(uart.kBuffer);
    if(uart.kBuffer[0] == 'a'){
       if(movingServo) changeMovingServo = true;
       else movingServo = true;
@@ -195,11 +196,10 @@ ISR(TIMER3_OVF_vect)
          i++; 
       }
       newAngleServoC[i-2] = '\0';
-uart.sendData("angulo: ") ;
-      uart.sendData(newAngleServoC) ;
       newAngleServo = atof(newAngleServoC);
       if(newAngleServo < 0.0 || newAngleServo > 90.0){
          movingServo = false;
       }
    }
+   movingServoSend = movingServo;
 }
