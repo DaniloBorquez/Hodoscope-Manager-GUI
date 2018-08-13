@@ -81,3 +81,8 @@ void MainWindow::on_pushButtonAzimuth_clicked()
 {
     new DialogAzimuth(this->dataManager);
 }
+
+void MainWindow::on_pushButtonGate_clicked()
+{
+    new DialogGate(this->dataManager);
+}

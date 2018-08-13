@@ -30,6 +30,7 @@ char *setAngC;
 char *setDistC;
 int angleInit, dist, lastDist;
 float gate = 5;
+char gateC[10];
 int tot_overflow;
 char dataSerial_send[38]="#f:0.000a:00.00p:00.00d:00.00x:00.00*";   
 double freq;
@@ -151,7 +152,7 @@ ISR(TIMER3_OVF_vect)
 
 	if(tot_overflow<0)                                                     // Condition for send the value (gate time is reached)
 	{
-		freq = (float)((TCNT5)/gate);                                    
+		freq = (float)((TCNT5)/gate);                                   
 		TCNT5=0;														   // Reset the coincidence counter
 		dtostrf(freq,-5, 3, (char*)freq_char);    
        
@@ -202,4 +203,18 @@ ISR(TIMER3_OVF_vect)
       }
    }
    movingServoSend = movingServo;
+
+   if(uart.kBuffer[0] == 'g'){
+      int i = 2;
+      while (uart.kBuffer[i] != '\0'){
+         gateC[i-2] = uart.kBuffer[i];
+         i++; 
+      }
+      gateC[i-2] = '\0';
+      if(atoi(gateC) > 0){
+         gate = atoi(gateC);
+         tot_overflow=OVERFLOW(gate);
+         tot_overflow--;
+      }
+   }
 }

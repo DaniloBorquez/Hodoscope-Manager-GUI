@@ -8,6 +8,7 @@
 #include "GUI/qcustomplot.h"
 #include "kernel/datamanager.h"
 #include "GUI/dialogazimuth.h"
+#include "GUI/dialoggate.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +32,8 @@ private slots:
     void on_pushButtonStart_clicked();
 
     void on_pushButtonAzimuth_clicked();
+
+    void on_pushButtonGate_clicked();
 
 private:
     Ui::MainWindow *ui;
