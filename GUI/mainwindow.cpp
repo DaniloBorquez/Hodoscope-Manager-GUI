@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    delete counterTime;
     delete ui;
 }
 
@@ -53,6 +54,13 @@ void MainWindow::distanceChanged(float d)
     this->ui->labelDistance->setText(QString::number(d));
 }
 
+void MainWindow::updateTimeElapsed()
+{
+    this->timeElapsed = QTime(0,0,0,0);
+    this->ui->labelTimeElapsed->setText(timeElapsed.addMSecs(this->timeStarted.elapsed()).toString("hh:mm:ss"));
+    qDebug() << "inside"<<timeElapsed.toString("hh:mm:ss");
+}
+
 void MainWindow::plotInit()
 {
     this->plotEnabled = false;
@@ -75,6 +83,12 @@ void MainWindow::on_pushButtonStart_clicked()
 {
     this->plotEnabled = true;
     this->time = QTime::currentTime();
+    this->ui->labelStatus->setText(QString("Measuring"));
+    this->timeStarted = QTime::currentTime();
+    this->ui->labelTimeStarted->setText(timeStarted.toString("hh:mm:ss AP"));
+    this->counterTime = new QTimer();
+    connect(this->counterTime, SIGNAL(timeout()), this, SLOT(updateTimeElapsed()));
+    this->counterTime->start(1000);
 }
 
 void MainWindow::on_pushButtonAzimuth_clicked()
