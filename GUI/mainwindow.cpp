@@ -20,10 +20,10 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::frequencyChanged(float f)
+void MainWindow::frequencyChanged(float f, int elapsed)
 {
     if(this->plotEnabled){
-        double key = this->time.elapsed()/1000.0;
+        double key = elapsed/1000.0;
         this->ui->customPlot->graph(0)->addData(key, f);
         if(key > 1200){
             this->ui->customPlot->xAxis->setRange(key, 1200, Qt::AlignRight); //1200 segundos
@@ -82,7 +82,7 @@ void MainWindow::plotInit()
 void MainWindow::on_pushButtonStart_clicked()
 {
     this->plotEnabled = true;
-    this->time = QTime::currentTime();
+    this->dataManager->startMeasuring();
     this->ui->labelStatus->setText(QString("Measuring"));
     this->timeStarted = QTime::currentTime();
     this->ui->labelTimeStarted->setText(timeStarted.toString("hh:mm:ss AP"));

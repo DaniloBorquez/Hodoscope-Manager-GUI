@@ -5,6 +5,16 @@ Buffer::Buffer(int maxSize)
 {
     this->maxSize = maxSize;
     this->buf = new QVector<Data*>();
+    this->measuring = false;
+}
+
+Buffer::~Buffer()
+{
+    for(int i = 0; i < this->buf->size();i++){
+        delete this->buf->at(i);
+    }
+    this->buf->clear();
+    delete this->buf;
 }
 
 void Buffer::push(Data *data)
@@ -43,9 +53,15 @@ void Buffer::receiveParameter(QString parameter)
     emit sendTask(parameter);
 }
 
+void Buffer::startMeasuring()
+{
+    this->measuring = true;
+    this->time = QTime::currentTime();
+}
+
 void Buffer::getIncomeMsg(QString msg)
 {
-    //qDebug() << "buffer in: " << msg;
+    int elapsed = this->time.elapsed();
     if(msg.split("*").size() == 2 && msg.split("*").at(1).compare("R") == 0){
         msg = msg.split("*").front().append('*');
     }else if(msg.compare("R") == 0){
@@ -53,20 +69,38 @@ void Buffer::getIncomeMsg(QString msg)
     }
     //qDebug() << "buffer in after: " << msg;
     if(msg.startsWith(QChar('#')) && msg.endsWith(QChar('*'))){
-        emit frequencySignal(msg.mid(3,5));
+        emit frequencySignal(msg.mid(3,5), elapsed);
         emit azimuthSignal(msg.mid(10,5));
         emit polarSignal(msg.mid(17,5));
         emit distanceSignal(msg.mid(24,5));
+        if(measuring){
 
+            Data *data = new Data();
+            data->setFrequency(msg.mid(3,5).toDouble());
+            data->setAzimuth(msg.mid(10,5).toDouble());
+            data->setPolar(msg.mid(17,5).toDouble());
+            data->setDistance(msg.mid(24,5).toDouble());
+            data->setDate(elapsed);
+            this->push(data);
+        }
     }else if(msg.startsWith(QChar('#'))){
         this->incomingBufferMsg = msg;
     }else if(msg.endsWith(QChar('*'))){
         this->incomingBufferMsg.append(msg);
         if(this->incomingBufferMsg.size() == 37){
-            emit frequencySignal(this->incomingBufferMsg.mid(3,5));
+            emit frequencySignal(this->incomingBufferMsg.mid(3,5),elapsed);
             emit azimuthSignal(this->incomingBufferMsg.mid(10,5));
             emit polarSignal(this->incomingBufferMsg.mid(17,5));
             emit distanceSignal(this->incomingBufferMsg.mid(24,5));
+            if(measuring){
+                Data *data = new Data();
+                data->setFrequency(msg.mid(3,5).toDouble());
+                data->setAzimuth(msg.mid(10,5).toDouble());
+                data->setPolar(msg.mid(17,5).toDouble());
+                data->setDistance(msg.mid(24,5).toDouble());
+                data->setDate(elapsed);
+                this->push(data);
+            }
         }else{
             qDebug() << "Incorrect: "<< this->incomingBufferMsg;
         }

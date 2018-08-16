@@ -20,6 +20,11 @@ void DataManager::sendParameter(QString parameter)
     this->bufer->receiveParameter(parameter);
 }
 
+void DataManager::startMeasuring()
+{
+    this->bufer->startMeasuring();
+}
+
 void DataManager::getSerialObject(SerialCommunication *serial)
 {
     this->serial = serial;
@@ -32,9 +37,9 @@ void DataManager::getSerialObject(SerialCommunication *serial)
     connect(this->bufer,&Buffer::distanceSignal,this,&DataManager::getDistance);
 }
 
-void DataManager::getFrequency(QString f)
+void DataManager::getFrequency(QString f, int elapsed)
 {
-    emit frequency(f.toFloat());
+    emit frequency(f.toFloat(), elapsed);
 }
 
 void DataManager::getAzimuth(QString a)

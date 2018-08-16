@@ -24,7 +24,7 @@ public:
     ~MainWindow();
 
 public slots:
-    void frequencyChanged(float f);
+    void frequencyChanged(float f, int elapsed);
     void azimuthChanged(float a);
     void polarChanged(float p);
     void distanceChanged(float d);
@@ -41,7 +41,6 @@ private:
     Ui::MainWindow *ui;
     DataManager *dataManager;
     bool plotEnabled;
-    QTime time;
     QTime timeStarted;
     QTime timeElapsed;
     QTimer *counterTime;
