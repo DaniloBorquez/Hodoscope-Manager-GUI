@@ -195,7 +195,7 @@
        <item row="3" column="0">
         <widget class="QLabel" name="label_10">
          <property name="text">
-          <string>Last frequency</string>
+          <string>Last frequency:</string>
          </property>
         </widget>
        </item>

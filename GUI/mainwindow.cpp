@@ -37,6 +37,7 @@ void MainWindow::frequencyChanged(float f)
         }
         this->ui->customPlot->replot();
     }
+    this->ui->labelLastFrequency->setText(QString::number(f).append(" Hz"));
 }
 
 void MainWindow::azimuthChanged(float a)
@@ -58,7 +59,6 @@ void MainWindow::updateTimeElapsed()
 {
     this->timeElapsed = QTime(0,0,0,0);
     this->ui->labelTimeElapsed->setText(timeElapsed.addMSecs(this->timeStarted.elapsed()).toString("hh:mm:ss"));
-    qDebug() << "inside"<<timeElapsed.toString("hh:mm:ss");
 }
 
 void MainWindow::plotInit()
