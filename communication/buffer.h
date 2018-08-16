@@ -18,7 +18,7 @@ public:
     ~Buffer();
 
     void push(Data* data);
-    SampleData getNPointsFT(int n);
+    void getNPointsFT(int n);
     void receiveParameter(QString parameter);
     void startMeasuring();
 
@@ -31,6 +31,7 @@ signals:
     void polarSignal(QString msg);
     void distanceSignal(QString msg);
     void sendTask(QString parameter);
+    void statsReady(SampleData sampleData);
 
 private:
     int maxSize;

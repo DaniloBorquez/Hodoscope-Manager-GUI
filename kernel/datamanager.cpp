@@ -35,6 +35,7 @@ void DataManager::getSerialObject(SerialCommunication *serial)
     connect(this->bufer,&Buffer::azimuthSignal,this,&DataManager::getAzimuth);
     connect(this->bufer,&Buffer::polarSignal,this,&DataManager::getPolar);
     connect(this->bufer,&Buffer::distanceSignal,this,&DataManager::getDistance);
+    connect(this->bufer,&Buffer::statsReady,this,&DataManager::getStats);
 }
 
 void DataManager::getFrequency(QString f, int elapsed)
@@ -55,4 +56,11 @@ void DataManager::getPolar(QString p)
 void DataManager::getDistance(QString d)
 {
     emit distance(d.toFloat());
+}
+
+void DataManager::getStats(SampleData sampleData)
+{
+    emit AverageFrequency(sampleData.getMean());
+    emit rms(sampleData.getRms());
+    emit sampleSize(sampleData.getY().size());
 }

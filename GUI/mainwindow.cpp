@@ -12,6 +12,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->dataManager,&DataManager::azimuth,this,&MainWindow::azimuthChanged);
     connect(this->dataManager,&DataManager::polar,this,&MainWindow::polarChanged);
     connect(this->dataManager,&DataManager::distance,this,&MainWindow::distanceChanged);
+    connect(this->dataManager,&DataManager::AverageFrequency,this,&MainWindow::updateAverageFrequency);
+    connect(this->dataManager,&DataManager::rms,this,&MainWindow::updateRMS);
+    connect(this->dataManager,&DataManager::sampleSize,this,&MainWindow::updateSampleSize);
 }
 
 MainWindow::~MainWindow()
@@ -59,6 +62,21 @@ void MainWindow::updateTimeElapsed()
 {
     this->timeElapsed = QTime(0,0,0,0);
     this->ui->labelTimeElapsed->setText(timeElapsed.addMSecs(this->timeStarted.elapsed()).toString("hh:mm:ss"));
+}
+
+void MainWindow::updateAverageFrequency(double f)
+{
+    this->ui->labelAverage->setText(QString::number(f).append(" Hz"));
+}
+
+void MainWindow::updateRMS(double rms)
+{
+    this->ui->labelRMS->setText(QString::number(rms).append(" Hz"));
+}
+
+void MainWindow::updateSampleSize(int n)
+{
+    this->ui->labelPlotPoints->setText(QString::number(n));
 }
 
 void MainWindow::plotInit()

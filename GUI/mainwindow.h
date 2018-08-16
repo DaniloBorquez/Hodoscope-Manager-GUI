@@ -29,6 +29,9 @@ public slots:
     void polarChanged(float p);
     void distanceChanged(float d);
     void updateTimeElapsed();
+    void updateAverageFrequency(double f);
+    void updateRMS(double rms);
+    void updateSampleSize(int n);
 
 private slots:
     void on_pushButtonStart_clicked();

@@ -22,12 +22,16 @@ public slots:
     void getAzimuth(QString a);
     void getPolar(QString p);
     void getDistance(QString d);
+    void getStats(SampleData sampleData);
 
 signals:
     void frequency(float f, int elapsed);
     void azimuth(float a);
     void polar(float p);
     void distance(float d);
+    void AverageFrequency(double f);
+    void rms(double f);
+    void sampleSize(int n);
 
 private:
     Buffer * bufer;
