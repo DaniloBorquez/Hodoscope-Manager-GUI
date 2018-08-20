@@ -119,3 +119,8 @@ void MainWindow::on_pushButtonGate_clicked()
 {
     new DialogGate(this->dataManager);
 }
+
+void MainWindow::on_pushButtonPlotPoints_clicked()
+{
+    new DialogSamplePoints(this->dataManager);
+}

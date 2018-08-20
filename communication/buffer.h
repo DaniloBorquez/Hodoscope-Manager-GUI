@@ -18,9 +18,12 @@ public:
     ~Buffer();
 
     void push(Data* data);
-    void getNPointsFT(int n);
+    void getNPointsFT();
     void receiveParameter(QString parameter);
     void startMeasuring();
+
+    int getNumberOfSamplePoints() const;
+    void setNumberOfSamplePoints(int value);
 
 public slots:
     void getIncomeMsg(QString msg);
@@ -39,6 +42,7 @@ private:
     QString incomingBufferMsg;
     QTime time;
     bool measuring;
+    int numberOfSamplePoints;
 
 };
 

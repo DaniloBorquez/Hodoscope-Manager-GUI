@@ -10,6 +10,7 @@
 #include "kernel/datamanager.h"
 #include "GUI/dialogazimuth.h"
 #include "GUI/dialoggate.h"
+#include "GUI/dialogsamplepoints.h"
 
 namespace Ui {
 class MainWindow;
@@ -39,6 +40,8 @@ private slots:
     void on_pushButtonAzimuth_clicked();
 
     void on_pushButtonGate_clicked();
+
+    void on_pushButtonPlotPoints_clicked();
 
 private:
     Ui::MainWindow *ui;

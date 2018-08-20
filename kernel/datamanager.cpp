@@ -75,3 +75,8 @@ void DataManager::setGate(int value)
 {
     gate = value;
 }
+
+void DataManager::setSamplePoints(int value)
+{
+    this->bufer->setNumberOfSamplePoints(value);
+}

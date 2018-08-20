@@ -33,7 +33,7 @@ void SerialCommunication::readData()
 void SerialCommunication::sendData(QString data)
 {
     QByteArray b = data.toUtf8();
-    const qint64 bytesWritten = this->write(b);
+    this->write(b);
 }
 
 void SerialCommunication::autoResponse(QString data)

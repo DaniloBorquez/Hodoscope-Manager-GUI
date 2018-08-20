@@ -18,6 +18,7 @@ public:
 
     int getGate() const;
     void setGate(int value);
+    void setSamplePoints(int value);
 
 public slots:
     void getSerialObject(SerialCommunication *serial);

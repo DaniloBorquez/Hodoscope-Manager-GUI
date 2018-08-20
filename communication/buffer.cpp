@@ -6,6 +6,7 @@ Buffer::Buffer(int maxSize)
     this->maxSize = maxSize;
     this->buf = new QVector<Data*>();
     this->measuring = false;
+    this->numberOfSamplePoints = 10;
 }
 
 Buffer::~Buffer()
@@ -25,12 +26,13 @@ void Buffer::push(Data *data)
     }
 }
 
-void Buffer::getNPointsFT(int n)
+void Buffer::getNPointsFT()
 {
     double mean = 0;
     double rms = 0;
     QVector<double> x;
     QVector<double> y;
+    int n = this->numberOfSamplePoints;
     for(int i = this->buf->size()-1;i>this->buf->size()-n-1 && i >= 0;i--){
         x.push_back(this->buf->at(i)->getDate());
         y.push_back(this->buf->at(i)->getFrequency());
@@ -84,7 +86,7 @@ void Buffer::getIncomeMsg(QString msg)
             data->setDistance(msg.mid(24,5).toDouble());
             data->setDate(elapsed);
             this->push(data);
-            this->getNPointsFT(10);
+            this->getNPointsFT();
         }
     }else if(msg.startsWith(QChar('#'))){
         this->incomingBufferMsg = msg;
@@ -103,7 +105,7 @@ void Buffer::getIncomeMsg(QString msg)
                 data->setDistance(this->incomingBufferMsg.mid(24,5).toDouble());
                 data->setDate(elapsed);
                 this->push(data);
-                this->getNPointsFT(10);
+                this->getNPointsFT();
             }
         }else{
             qDebug() << "Incorrect: "<< this->incomingBufferMsg;
@@ -111,4 +113,14 @@ void Buffer::getIncomeMsg(QString msg)
     }else{
         this->incomingBufferMsg.append(msg);
     }
+}
+
+int Buffer::getNumberOfSamplePoints() const
+{
+    return numberOfSamplePoints;
+}
+
+void Buffer::setNumberOfSamplePoints(int value)
+{
+    numberOfSamplePoints = value;
 }
