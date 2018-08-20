@@ -38,6 +38,7 @@ char freq_char[6];
 bool movingServo = true;
 bool movingServoSend = true;
 bool changeMovingServo = false;
+bool canSendData = false;
 char newAngleServoC[10];
 float newAngleServo = 0;
 
@@ -177,8 +178,9 @@ ISR(TIMER3_OVF_vect)
       dataSerial_send[27] = us.buff[3];
       dataSerial_send[28] = us.buff[4];  
       
-      if(!movingServoSend)	uart.sendData(dataSerial_send);
-      else if(!movingServo) movingServoSend = false; 
+      if(!movingServoSend && !canSendData)   canSendData = true;	
+      else if (canSendData)                  uart.sendData(dataSerial_send);
+      else if(!movingServo)                  movingServoSend = false; 
       uart_flush();
 	
 		tot_overflow=OVERFLOW(gate);                                 
@@ -191,6 +193,7 @@ ISR(TIMER3_OVF_vect)
    if(uart.kBuffer[0] == 'a'){
       if(movingServo) changeMovingServo = true;
       else movingServo = true;
+      canSendData = false;
       int i = 2;
       while (uart.kBuffer[i] != '\0'){
          newAngleServoC[i-2] = uart.kBuffer[i];
@@ -200,6 +203,7 @@ ISR(TIMER3_OVF_vect)
       newAngleServo = atof(newAngleServoC);
       if(newAngleServo < 0.0 || newAngleServo > 90.0){
          movingServo = false;
+         canSendData = true;
       }
    }
    movingServoSend = movingServo;

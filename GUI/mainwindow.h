@@ -11,6 +11,8 @@
 #include "GUI/dialogazimuth.h"
 #include "GUI/dialoggate.h"
 #include "GUI/dialogsamplepoints.h"
+#include <kernel/routine.h>
+#include <GUI/dialogroutine.h>
 
 namespace Ui {
 class MainWindow;
@@ -43,6 +45,8 @@ private slots:
 
     void on_pushButtonPlotPoints_clicked();
 
+    void on_pushButtonStartRoutine_clicked();
+
 private:
     Ui::MainWindow *ui;
     DataManager *dataManager;
@@ -50,6 +54,7 @@ private:
     QTime timeStarted;
     QTime timeElapsed;
     QTimer *counterTime;
+    Routine *routine;
 
     void plotInit();
 };
