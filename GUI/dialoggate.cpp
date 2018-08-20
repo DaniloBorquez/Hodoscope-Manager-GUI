@@ -20,6 +20,7 @@ void DialogGate::done(int r)
     if(QDialog::Accepted == r)  // ok was pressed
     {
         dataManager->sendParameter(QString("g:").append(ui->lineEditGate->text()).append('\r'));
+        dataManager->setGate(ui->lineEditGate->text().toInt());
         QDialog::done(r);
         return;
    /*     if(serial->isOk()){

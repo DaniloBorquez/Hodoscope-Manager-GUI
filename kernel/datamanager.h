@@ -16,6 +16,9 @@ public:
     void sendParameter(QString parameter);
     void startMeasuring();
 
+    int getGate() const;
+    void setGate(int value);
+
 public slots:
     void getSerialObject(SerialCommunication *serial);
     void getFrequency(QString f, int elapsed);
@@ -37,6 +40,7 @@ private:
     Buffer * bufer;
     SerialCommunication *serial;
     QObject *parent;
+    int gate;
 };
 
 #endif // DATAMANAGER_H

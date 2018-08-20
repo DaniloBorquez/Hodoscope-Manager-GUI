@@ -41,6 +41,7 @@ void MainWindow::frequencyChanged(float f, int elapsed)
         this->ui->customPlot->replot();
     }
     this->ui->labelLastFrequency->setText(QString::number(f).append(" Hz"));
+    this->ui->labelGate->setText(QString::number(this->dataManager->getGate()));
 }
 
 void MainWindow::azimuthChanged(float a)
