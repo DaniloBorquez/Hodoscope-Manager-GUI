@@ -189,14 +189,17 @@ ISR(TIMER3_OVF_vect)
    _delay_ms(200); 
    uart.sendData("R") ;
    uart.readData();
+   uart.sendData("Received") ;
    if(uart.kBuffer[0] == 'a'){
       if(movingServo) changeMovingServo = true;
       else movingServo = true;
       int i = 2;
+      uart.sendData("getting parameter") ;
       while (uart.kBuffer[i] != '\0'){
          newAngleServoC[i-2] = uart.kBuffer[i];
          i++; 
       }
+      uart.sendData("Parameter getted") ;
       newAngleServoC[i-2] = '\0';
       newAngleServo = atof(newAngleServoC);
       if(newAngleServo < 0.0 || newAngleServo > 90.0){
