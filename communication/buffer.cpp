@@ -73,39 +73,51 @@ void Buffer::getIncomeMsg(QString msg)
     }
     //qDebug() << "buffer in after: " << msg;
     if(msg.startsWith(QChar('#')) && msg.endsWith(QChar('*'))){
-        emit frequencySignal(msg.mid(3,5), elapsed);
-        emit azimuthSignal(msg.mid(10,5));
-        emit polarSignal(msg.mid(17,5));
-        emit distanceSignal(msg.mid(24,5));
-        if(measuring){
+        float f = msg.mid(3,5).toFloat();
+        if(f < 20){
+            emit frequencySignal(msg.mid(3,5), elapsed);
+            emit azimuthSignal(msg.mid(10,5));
+            emit polarSignal(msg.mid(17,5));
+            emit distanceSignal(msg.mid(24,5));
+            if(measuring){
 
-            Data *data = new Data();
-            data->setFrequency(msg.mid(3,5).toDouble());
-            data->setAzimuth(msg.mid(10,5).toDouble());
-            data->setPolar(msg.mid(17,5).toDouble());
-            data->setDistance(msg.mid(24,5).toDouble());
-            data->setDate(elapsed);
-            this->push(data);
-            this->getNPointsFT();
+                Data *data = new Data();
+                data->setFrequency(msg.mid(3,5).toDouble());
+                data->setAzimuth(msg.mid(10,5).toDouble());
+                data->setPolar(msg.mid(17,5).toDouble());
+                data->setDistance(msg.mid(24,5).toDouble());
+                data->setDate(elapsed);
+                this->push(data);
+                this->getNPointsFT();
+            }
+        }else{
+            float az = msg.mid(10,5).toFloat();
+            receiveParameter(QString("a:").append(QString::number(az-1)).append("\r"));
         }
     }else if(msg.startsWith(QChar('#'))){
         this->incomingBufferMsg = msg;
     }else if(msg.endsWith(QChar('*'))){
         this->incomingBufferMsg.append(msg);
         if(this->incomingBufferMsg.size() == 37){
-            emit frequencySignal(this->incomingBufferMsg.mid(3,5),elapsed);
-            emit azimuthSignal(this->incomingBufferMsg.mid(10,5));
-            emit polarSignal(this->incomingBufferMsg.mid(17,5));
-            emit distanceSignal(this->incomingBufferMsg.mid(24,5));
-            if(measuring){
-                Data *data = new Data();
-                data->setFrequency(this->incomingBufferMsg.mid(3,5).toDouble());
-                data->setAzimuth(this->incomingBufferMsg.mid(10,5).toDouble());
-                data->setPolar(this->incomingBufferMsg.mid(17,5).toDouble());
-                data->setDistance(this->incomingBufferMsg.mid(24,5).toDouble());
-                data->setDate(elapsed);
-                this->push(data);
-                this->getNPointsFT();
+            float f = this->incomingBufferMsg.mid(3,5).toFloat();
+            if(f < 20){
+                emit frequencySignal(this->incomingBufferMsg.mid(3,5),elapsed);
+                emit azimuthSignal(this->incomingBufferMsg.mid(10,5));
+                emit polarSignal(this->incomingBufferMsg.mid(17,5));
+                emit distanceSignal(this->incomingBufferMsg.mid(24,5));
+                if(measuring){
+                    Data *data = new Data();
+                    data->setFrequency(this->incomingBufferMsg.mid(3,5).toDouble());
+                    data->setAzimuth(this->incomingBufferMsg.mid(10,5).toDouble());
+                    data->setPolar(this->incomingBufferMsg.mid(17,5).toDouble());
+                    data->setDistance(this->incomingBufferMsg.mid(24,5).toDouble());
+                    data->setDate(elapsed);
+                    this->push(data);
+                    this->getNPointsFT();
+                }
+            }else{
+                float az = this->incomingBufferMsg.mid(10,5).toFloat();
+                receiveParameter(QString("a:").append(QString::number(az-1)).append("\r"));
             }
         }else{
             qDebug() << "Incorrect: "<< this->incomingBufferMsg;

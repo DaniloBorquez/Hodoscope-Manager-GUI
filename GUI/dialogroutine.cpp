@@ -7,6 +7,7 @@ DialogRoutine::DialogRoutine(Routine *routine, QWidget *parent) :
 {
     ui->setupUi(this);
     this->routine = routine;
+    this->parent = parent;
     this->show();
 }
 

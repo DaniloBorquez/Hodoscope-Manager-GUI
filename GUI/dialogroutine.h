@@ -23,6 +23,7 @@ public slots:
 private:
     Ui::DialogRoutine *ui;
     Routine *routine;
+    QWidget *parent;
 };
 
 #endif // DIALOGROUTINE_H

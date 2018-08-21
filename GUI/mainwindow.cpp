@@ -15,6 +15,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->dataManager,&DataManager::AverageFrequency,this,&MainWindow::updateAverageFrequency);
     connect(this->dataManager,&DataManager::rms,this,&MainWindow::updateRMS);
     connect(this->dataManager,&DataManager::sampleSize,this,&MainWindow::updateSampleSize);
+
+    if(!QDir(QCoreApplication::applicationDirPath()+"/logData").exists()){
+        QDir().mkdir(QCoreApplication::applicationDirPath()+"/logData");
+    }
 }
 
 MainWindow::~MainWindow()
@@ -131,4 +135,5 @@ void MainWindow::on_pushButtonStartRoutine_clicked()
     connect(this->dataManager,&DataManager::frequency,this->routine,&Routine::newSample);
     new DialogRoutine(this->routine);
     on_pushButtonStart_clicked();
+    this->ui->labelStatus->setText(QString("Routine started"));
 }

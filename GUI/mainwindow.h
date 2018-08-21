@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include <QDir>
 
 #include "communication/serialcommunication.h"
 #include "GUI/qcustomplot.h"
