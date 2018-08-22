@@ -15,10 +15,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this->dataManager,&DataManager::AverageFrequency,this,&MainWindow::updateAverageFrequency);
     connect(this->dataManager,&DataManager::rms,this,&MainWindow::updateRMS);
     connect(this->dataManager,&DataManager::sampleSize,this,&MainWindow::updateSampleSize);
-
-    if(!QDir(QCoreApplication::applicationDirPath()+"/logData").exists()){
-        QDir().mkdir(QCoreApplication::applicationDirPath()+"/logData");
-    }
 }
 
 MainWindow::~MainWindow()

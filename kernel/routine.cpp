@@ -21,7 +21,7 @@ Routine::Routine(DataManager *dataManager, int angleSteps, int samplesByAngle, i
 void Routine::newSample()
 {
     if(this->routineStarted){
-        if(this->actualSamples/this->samplesByAngle == 90){
+        if(this->actualSamples/this->samplesByAngle >= 90){
             emit routineFinished();
             this->routineStarted = false;
             delete this;

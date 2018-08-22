@@ -36,7 +36,8 @@ SOURCES += main.cpp\
     GUI/dialoggate.cpp \
     GUI/dialogsamplepoints.cpp \
     GUI/dialogroutine.cpp \
-    kernel/routine.cpp
+    kernel/routine.cpp \
+    kernel/logdata.cpp
 
 HEADERS  += GUI/mainwindow.h \
     kernel/data.h \
@@ -50,7 +51,8 @@ HEADERS  += GUI/mainwindow.h \
     GUI/dialoggate.h \
     GUI/dialogsamplepoints.h \
     GUI/dialogroutine.h \
-    kernel/routine.h
+    kernel/routine.h \
+    kernel/logdata.h
 
 FORMS    += GUI/mainwindow.ui \
     GUI/dialogserialchoose.ui \

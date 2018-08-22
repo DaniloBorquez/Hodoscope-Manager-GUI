@@ -33,6 +33,9 @@ signals:
     void azimuthSignal(QString msg);
     void polarSignal(QString msg);
     void distanceSignal(QString msg);
+
+    void dataForLog(QString f, QString a, QString p, QString d, QString status);
+
     void sendTask(QString parameter);
     void statsReady(SampleData sampleData);
 

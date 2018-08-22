@@ -9,11 +9,17 @@ DataManager::DataManager()
     connect(dialog,&DialogSerialChoose::serialObject,this,&DataManager::getSerialObject);
     this->parent = parent;
     this->gate = 5;
+
+    if(!QDir(QCoreApplication::applicationDirPath()+"/logData").exists()){
+        QDir().mkdir(QCoreApplication::applicationDirPath()+"/logData");
+    }
+    this->log = new LogData(QCoreApplication::applicationDirPath()+"/logData/");
 }
 
 DataManager::~DataManager()
 {
     delete this->bufer;
+    delete this->log;
 }
 
 void DataManager::sendParameter(QString parameter)
@@ -37,6 +43,7 @@ void DataManager::getSerialObject(SerialCommunication *serial)
     connect(this->bufer,&Buffer::polarSignal,this,&DataManager::getPolar);
     connect(this->bufer,&Buffer::distanceSignal,this,&DataManager::getDistance);
     connect(this->bufer,&Buffer::statsReady,this,&DataManager::getStats);
+    connect(this->bufer,&Buffer::dataForLog,this->log,&LogData::writeInformation);
 }
 
 void DataManager::getFrequency(QString f, int elapsed)

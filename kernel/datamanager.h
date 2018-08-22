@@ -1,9 +1,14 @@
 #ifndef DATAMANAGER_H
 #define DATAMANAGER_H
 
+#include <QObject>
+#include <QDir>
+#include <QCoreApplication>
+
 #include "GUI/dialogserialchoose.h"
 #include "communication/buffer.h"
 #include "communication/serialcommunication.h"
+#include "kernel/logdata.h"
 
 class DataManager : public QObject
 {
@@ -42,6 +47,7 @@ private:
     SerialCommunication *serial;
     QObject *parent;
     int gate;
+    LogData *log;
 };
 
 #endif // DATAMANAGER_H

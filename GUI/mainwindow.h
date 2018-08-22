@@ -7,8 +7,9 @@
 #include <QDir>
 
 #include "communication/serialcommunication.h"
-#include "GUI/qcustomplot.h"
 #include "kernel/datamanager.h"
+#include "kernel/logdata.h"
+#include "GUI/qcustomplot.h"
 #include "GUI/dialogazimuth.h"
 #include "GUI/dialoggate.h"
 #include "GUI/dialogsamplepoints.h"
@@ -56,6 +57,7 @@ private:
     QTime timeElapsed;
     QTimer *counterTime;
     Routine *routine;
+    LogData *log;
 
     void plotInit();
 };

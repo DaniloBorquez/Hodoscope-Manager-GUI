@@ -80,7 +80,6 @@ void Buffer::getIncomeMsg(QString msg)
             emit polarSignal(msg.mid(17,5));
             emit distanceSignal(msg.mid(24,5));
             if(measuring){
-
                 Data *data = new Data();
                 data->setFrequency(msg.mid(3,5).toDouble());
                 data->setAzimuth(msg.mid(10,5).toDouble());
@@ -89,10 +88,18 @@ void Buffer::getIncomeMsg(QString msg)
                 data->setDate(elapsed);
                 this->push(data);
                 this->getNPointsFT();
+                emit dataForLog(msg.mid(3,5),
+                                 msg.mid(10,5),
+                                 msg.mid(17,5),
+                                 msg.mid(24,5),QString("OK"));
             }
         }else{
             float az = msg.mid(10,5).toFloat();
             receiveParameter(QString("a:").append(QString::number(az-1)).append("\r"));
+            emit dataForLog(msg.mid(3,5),
+                             msg.mid(10,5),
+                             msg.mid(17,5),
+                             msg.mid(24,5),QString("WARNING"));
         }
     }else if(msg.startsWith(QChar('#'))){
         this->incomingBufferMsg = msg;
@@ -114,10 +121,18 @@ void Buffer::getIncomeMsg(QString msg)
                     data->setDate(elapsed);
                     this->push(data);
                     this->getNPointsFT();
+                    emit dataForLog(this->incomingBufferMsg.mid(3,5),
+                                    this->incomingBufferMsg.mid(10,5),
+                                    this->incomingBufferMsg.mid(17,5),
+                                    this->incomingBufferMsg.mid(24,5),QString("OK"));
                 }
             }else{
                 float az = this->incomingBufferMsg.mid(10,5).toFloat();
                 receiveParameter(QString("a:").append(QString::number(az-1)).append("\r"));
+                emit dataForLog(this->incomingBufferMsg.mid(3,5),
+                                this->incomingBufferMsg.mid(10,5),
+                                this->incomingBufferMsg.mid(17,5),
+                                this->incomingBufferMsg.mid(24,5),QString("WARNING"));
             }
         }else{
             qDebug() << "Incorrect: "<< this->incomingBufferMsg;
