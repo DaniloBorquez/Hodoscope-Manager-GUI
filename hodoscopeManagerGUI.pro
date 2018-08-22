@@ -60,3 +60,6 @@ FORMS    += GUI/mainwindow.ui \
     GUI/dialoggate.ui \
     GUI/dialogsamplepoints.ui \
     GUI/dialogroutine.ui
+
+RESOURCES += \
+    resource.qrc
