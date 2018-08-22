@@ -9,7 +9,7 @@ LogData::LogData(QString path)
     this->file.open(QIODevice::Append | QIODevice::Text);
     this->file.write("#\n#");
     this->file.write(date.toString("dd/MM/yyyy HH:mm:ss").toLatin1().data());
-    this->file.write("\n#Year, Month, Day, Hours, minutes, seconds, frequency, azimuth, polar angle, distance\n");
+    this->file.write("\n#Year, Month, Day, Hours, minutes, seconds, frequency, azimuth, polar angle, distance, status\n");
     this->file.close();
 }
 
