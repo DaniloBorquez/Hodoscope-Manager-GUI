@@ -95,6 +95,8 @@ void MainWindow::plotInit()
     this->ui->customPlot->yAxis->setRange(-0.1, 10);
     this->ui->customPlot->xAxis->setRange(0, 10);
     this->ui->customPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssDisc, 5));
+    this->ui->customPlot->setInteraction(QCP::iRangeDrag, true);
+    this->ui->customPlot->axisRect()->setRangeDrag(Qt::Horizontal);
     this->ui->customPlot->replot();
 }
 
