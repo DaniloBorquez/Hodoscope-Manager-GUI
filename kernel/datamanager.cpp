@@ -25,11 +25,15 @@ DataManager::~DataManager()
 void DataManager::sendParameter(QString parameter)
 {
     this->bufer->receiveParameter(parameter);
+    if(parameter.split(":").at(0).compare(QString("g")) == 0){
+        this->gate = parameter.split(":").at(1).split("\\").at(0).toInt();
+    }
 }
 
 void DataManager::startMeasuring()
 {
     this->bufer->startMeasuring();
+    this->bufer->clear();
 }
 
 void DataManager::getSerialObject(SerialCommunication *serial)

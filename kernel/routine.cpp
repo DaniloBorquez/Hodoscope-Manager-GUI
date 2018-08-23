@@ -35,6 +35,7 @@ void Routine::newSample()
 void Routine::startRoutine()
 {
     this->routineStarted = true;
+    emit setParameter(QString("g:").append(QString::number(this->gate)).append("\r"));
 }
 
 int Routine::getGate() const

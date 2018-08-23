@@ -24,6 +24,7 @@ public:
 
     int getNumberOfSamplePoints() const;
     void setNumberOfSamplePoints(int value);
+    void clear();
 
 public slots:
     void getIncomeMsg(QString msg);

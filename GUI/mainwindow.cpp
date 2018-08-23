@@ -86,7 +86,7 @@ void MainWindow::plotInit()
     this->ui->customPlot->addGraph();
     // give the axes some labels:
     this->ui->customPlot->xAxis->setLabel("Time");
-    this->ui->customPlot->yAxis->setLabel("#");
+    this->ui->customPlot->yAxis->setLabel("Frequency");
     // set axes ranges, so we see all data:
     QSharedPointer<QCPAxisTickerTime> timeTicker(new QCPAxisTickerTime);
     timeTicker->setTimeFormat("%h:%m:%s");
@@ -129,6 +129,7 @@ void MainWindow::on_pushButtonStartRoutine_clicked()
 {
     this->routine = new Routine(this->dataManager);
     connect(this->dataManager,&DataManager::frequency,this->routine,&Routine::newSample);
+    connect(this->routine,&Routine::setParameter,this->dataManager,&DataManager::sendParameter);
     new DialogRoutine(this->routine);
     on_pushButtonStart_clicked();
     this->ui->labelStatus->setText(QString("Routine started"));

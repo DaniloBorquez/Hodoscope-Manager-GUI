@@ -2,6 +2,7 @@
 #define ROUTINE_H
 
 #include <QObject>
+#include <QString>
 
 #include <kernel/datamanager.h>
 
@@ -27,6 +28,7 @@ public slots:
 
 signals:
     void routineFinished();
+    void setParameter(QString parameter);
 
 private:
     int angleSteps;

@@ -151,3 +151,11 @@ void Buffer::setNumberOfSamplePoints(int value)
 {
     numberOfSamplePoints = value;
 }
+
+void Buffer::clear()
+{
+    for(int i = 0; i < this->buf->size();i++){
+        delete this->buf->at(i);
+    }
+    this->buf->clear();
+}
