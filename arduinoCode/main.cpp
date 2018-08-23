@@ -71,7 +71,7 @@ int main(void){
 /******Config initializations******/
 
    us.init();
-   uart.init(57600);   
+   uart.init(9600);   
    finButton.init(); 
    imu.init();
    timer3_init();
@@ -189,7 +189,8 @@ ISR(TIMER3_OVF_vect)
    _delay_ms(200); 
    uart.sendData("R") ;
    uart.readData();
-   uart.sendData("Received") ;
+   uart.sendData("Received: ") ;
+   uart.sendData(uart.kBuffer);
    if(uart.kBuffer[0] == 'a'){
       if(movingServo) changeMovingServo = true;
       else movingServo = true;
