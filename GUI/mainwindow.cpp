@@ -80,6 +80,20 @@ void MainWindow::updateSampleSize(int n)
     this->ui->labelPlotPoints->setText(QString::number(n));
 }
 
+void MainWindow::StartMeasuring()
+{
+    this->plotEnabled = true;
+    this->ui->customPlot->graph(0)->data()->clear();
+    this->dataManager->startMeasuring();
+    this->ui->labelStatus->setText(QString("Measuring"));
+    this->timeStarted = QTime::currentTime();
+    this->ui->labelTimeStarted->setText(timeStarted.toString("hh:mm:ss AP"));
+    this->counterTime = new QTimer();
+    connect(this->counterTime, SIGNAL(timeout()), this, SLOT(updateTimeElapsed()));
+    this->counterTime->start(1000);
+    this->ui->labelStatus->setText(QString("Routine started"));
+}
+
 void MainWindow::plotInit()
 {
     this->plotEnabled = false;
@@ -132,7 +146,6 @@ void MainWindow::on_pushButtonStartRoutine_clicked()
     this->routine = new Routine(this->dataManager);
     connect(this->dataManager,&DataManager::frequency,this->routine,&Routine::newSample);
     connect(this->routine,&Routine::setParameter,this->dataManager,&DataManager::sendParameter);
+    connect(this->routine,&Routine::beginRoutine,this,&MainWindow::StartMeasuring);
     new DialogRoutine(this->routine);
-    on_pushButtonStart_clicked();
-    this->ui->labelStatus->setText(QString("Routine started"));
 }

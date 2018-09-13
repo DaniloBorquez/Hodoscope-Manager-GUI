@@ -37,6 +37,7 @@ public slots:
     void updateAverageFrequency(double f);
     void updateRMS(double rms);
     void updateSampleSize(int n);
+    void StartMeasuring();
 
 private slots:
     void on_pushButtonStart_clicked();

@@ -29,6 +29,7 @@ public slots:
 signals:
     void routineFinished();
     void setParameter(QString parameter);
+    void beginRoutine();
 
 private:
     int angleSteps;
