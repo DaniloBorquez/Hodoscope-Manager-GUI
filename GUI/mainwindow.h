@@ -59,6 +59,7 @@ private:
     QTimer *counterTime;
     Routine *routine;
     LogData *log;
+    int eventsCounter;
 
     void plotInit();
 };

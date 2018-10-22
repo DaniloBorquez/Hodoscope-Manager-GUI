@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->dataManager = new DataManager();
+    this->eventsCounter = 0;
     plotInit();
     connect(this->dataManager,&DataManager::frequency,this,&MainWindow::frequencyChanged);
     connect(this->dataManager,&DataManager::azimuth,this,&MainWindow::azimuthChanged);
@@ -39,6 +40,8 @@ void MainWindow::frequencyChanged(float f, int elapsed)
             this->ui->customPlot->yAxis->setRange(-0.1,range.upper);
         }
         this->ui->customPlot->replot();
+        this->eventsCounter++;
+        this->ui->labelNumberEvents->setText(QString::number(this->eventsCounter));
     }
     this->ui->labelLastFrequency->setText(QString::number(f).append(" Hz"));
     this->ui->labelGate->setText(QString::number(this->dataManager->getGate()));
